@@ -1,0 +1,119 @@
+:root {
+    --clr-primary: hsl(0, 0%, 100%);
+    --clr-secondary: hsl(248, 39%, 39%);
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+button {
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+.main-header {
+    display: grid;
+    justify-items: center;
+    background-color: var(--clr-secondary);
+    color: var(--clr-primary);
+}
+
+.main-header-logo {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.logo-separator {
+    display: inline-block;
+    width: .5em;
+    height: .2em;
+    background-color: currentColor;
+    border-radius: 50vh;
+    margin-inline: .1em;
+}
+
+.logo-separator::before {
+    content: '';
+    width: 100%;
+    height: 1rem;
+}
+
+.navbar {
+    --_margin: .5rem;
+    margin-bottom: var(--_margin);
+}
+
+.progress-list {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    gap: 2rem;
+    counter-reset: item;
+}
+
+.progress-list-item {
+    display: grid;
+    justify-content: center;
+    position: relative;
+}
+
+.progress-btn {
+    background-color: transparent;
+    border: none;
+}
+
+.progress-line {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    left: 50%;
+    top: calc(100% + (var(--_margin)*2));
+    transform: translateX(-50%);
+    color: var(--clr-secondary);
+    background: var(--clr-primary);
+    border: 2px solid var(--clr-secondary);
+    border-radius: 50%;
+}
+
+.progress-btn.active .progress-line,
+.progress-btn.done .progress-line {
+    color: var(--clr-primary);
+    background-color: var(--clr-secondary);
+}
+
+.progress-line::before {
+    counter-increment: item;
+    content: counter(item);
+}
+
+.progress-btn.done:not(.active) .progress-line::before {
+    content: '✓';
+}
+
+.progress-list-item:not(:last-child) .progress-line::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 6rem;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--clr-secondary);
+    z-index: -1;
+    pointer-events: none;
+}
