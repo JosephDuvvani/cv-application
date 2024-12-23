@@ -21,6 +21,11 @@ button {
     cursor: pointer;
 }
 
+main {
+    --_nav-margin: .5rem;
+    --_prog-bar-offset: calc(100% + (var(--_nav-margin)*2));
+}
+
 .main-header {
     display: grid;
     justify-items: center;
@@ -51,8 +56,7 @@ button {
 }
 
 .navbar {
-    --_margin: .5rem;
-    margin-bottom: var(--_margin);
+    margin-bottom: var(--_nav-margin);
 }
 
 .progress-list {
@@ -82,7 +86,7 @@ button {
     width: 2em;
     height: 2em;
     left: 50%;
-    top: calc(100% + (var(--_margin)*2));
+    top: var(--_prog-bar-offset);
     transform: translateX(-50%);
     color: var(--clr-secondary);
     background: var(--clr-primary);
@@ -116,4 +120,14 @@ button {
     background-color: var(--clr-secondary);
     z-index: -1;
     pointer-events: none;
+}
+
+.form-section {
+    margin-block: 6rem 4rem;
+}
+
+.form-container {
+    margin: auto;
+    max-width: 900px;
+    padding-inline: 1rem;
 }
