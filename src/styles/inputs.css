@@ -39,15 +39,23 @@
     grid-row: 4;
 }
 
-.add-skill-btn {
+.add-btn {
     display: flex;
     align-items: center;
-    grid-row: 3;
     justify-self: end;
 }
 
-.add-skill-btn_icon svg {
+.add-btn_icon svg {
     width: 1.5em;
+}
+
+.add-skill-btn {
+    grid-row: 3;
+}
+
+.add-job-btn {
+    grid-row: 5;
+    grid-column: -2;
 }
 
 .form-inputs-container_summary {
@@ -63,4 +71,9 @@
     max-width: 30rem;
     margin: auto;
     overflow-x: hidden;
+}
+
+.btn-disable {
+    pointer-events: none;
+    opacity: .3;
 }
