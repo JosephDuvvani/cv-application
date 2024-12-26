@@ -8,6 +8,7 @@ export default ({isActive, jobs, setJobs}) => {
         startDate: '',
         endDate: ''
     })
+    const [formOpen, setFormOpen] = useState(jobs.length === 0);
 
     const inputs = document.querySelectorAll('.clear');
 
@@ -22,11 +23,22 @@ export default ({isActive, jobs, setJobs}) => {
             startDate: '',
             endDate: ''
         });
+        setFormOpen(false)
     }
 
     return (
         <>
-        { isActive ? (
+        {isActive && !formOpen &&
+            <button type="button" className="add-more-btn" onClick={() => setFormOpen(true)}>
+                <span className="add-btn_icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                    </svg>
+                </span>
+                Add More Experience
+            </button>
+        }       
+        { isActive && formOpen ? (
             <div className="form-inputs-container">
                 <label className="label">
                     <span className="label-text">Job Title</span>
