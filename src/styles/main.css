@@ -132,7 +132,26 @@ main {
     padding-inline: 1rem;
 }
 
+.direction-btn-container {
+    display: flex;
+    justify-content: end;
+    max-width: var(--_max-form-width);
+    margin: auto;
+}
+
 .form-container {
     margin: auto;
     max-width: var(--_max-form-width);
+}
+
+.back-btn {
+    margin-bottom: 2rem;
+}
+
+.next-btn {
+    grid-column: 1/-1;
+    justify-self: end;
+    padding: 1rem 2rem;
+    border-radius: 50vh;
+    margin-top: 2rem;
 }

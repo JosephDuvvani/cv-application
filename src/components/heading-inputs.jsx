@@ -1,6 +1,6 @@
 import '../styles/inputs.css';
 
-export default ({isActive, next, info, setInfo}) => {
+export default ({isActive, info, setInfo}) => {
     function handleChange(e) {
         setInfo({ ...info, [e.target.name]: e.target.value });
       }
@@ -61,10 +61,6 @@ export default ({isActive, next, info, setInfo}) => {
                     onChange={handleChange}
                 />
             </label>
-
-            <button className='next-btn' onClick={next}>
-                Next: Work History
-            </button>
         </div>) : null}
         </>
     )

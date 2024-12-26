@@ -1,8 +1,6 @@
 import { useState } from "react"
 
-export default ({isActive, next, back, skills, setSkills}) => {
-    const [ability, setAbility] = useState([]);
-
+export default ({isActive, skills, setSkills}) => {
     function addSkill() {
         const id = crypto.randomUUID();
         setSkills([...skills, {value: '', id: id}]);
@@ -20,13 +18,6 @@ export default ({isActive, next, back, skills, setSkills}) => {
         <>
             {isActive ?
                 <div className="form-inputs-container">
-                    <button 
-                        className="back-btn btn-strip"
-                        onClick={back}
-                    >
-                        ← Go Back
-                    </button>
-
                     <SkillFields abilities={skills} setList={setSkills} />
 
                     <button
@@ -40,13 +31,6 @@ export default ({isActive, next, back, skills, setSkills}) => {
                             </svg>
                         </span>
                         Add a skill
-                    </button>
-
-                    <button
-                        className="next-btn"
-                        onClick={next}
-                    >
-                        Next: Skills
                     </button>
                 </div> :
                 null

@@ -28,13 +28,6 @@
     grid-column: 1/-1;
 }
 
-.next-btn {
-    grid-column: 1/-1;
-    justify-self: end;
-    padding: 1rem 2rem;
-    border-radius: 50vh;
-}
-
 .label_work-date {
     grid-row: 4;
 }

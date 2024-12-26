@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default ({isActive, next, back, jobs, setJobs}) => {
+export default ({isActive, jobs, setJobs}) => {
     const [jobInfo, setInfo] = useState({
         title: '',
         employer: '',
@@ -28,13 +28,6 @@ export default ({isActive, next, back, jobs, setJobs}) => {
         <>
         { isActive ? (
             <div className="form-inputs-container">
-                <button 
-                    className='back-btn btn-strip' 
-                    onClick={back}
-                >
-                    ← Go Back
-                </button>
-
                 <label className="label">
                     <span className="label-text">Job Title</span>
                     <input 
@@ -94,10 +87,6 @@ export default ({isActive, next, back, jobs, setJobs}) => {
                             </svg>
                     </span>
                     Add Job
-                </button>
-
-                <button className="next-btn" onClick={next}>
-                    Next: Education
                 </button>
             </div>) : null}
         </>

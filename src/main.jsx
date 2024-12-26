@@ -18,9 +18,55 @@ function Main() {
     email: ' '
   });
 
-  const [work, setWork] = useState([]);
+  const tempWork = [
+    {
+      id: '101',
+      value: {
+        title: 'Web Dev',
+        employer: 'Google',
+        location: 'London (remote)',
+        startDate: '2025/06/04',
+        endDate: '2027/06/01'
+      }
+  },
+    {
+      id: '102',
+      value: {
+        title: 'Software Developer',
+        employer: 'Meta',
+        location: 'London (remote)',
+        startDate: '2025/06/04',
+        endDate: '2027/06/01'
+      }
+    }
+  ]
 
-  const [education, setEducation] = useState([]);
+  const tempStudy = [
+    {
+      id: '101',
+      value: {
+        name: 'UCT',
+        location: 'Cape Town, SA',
+        degree: 'BSc',
+        field: 'Computer Science',
+        gradDate: '2018'
+      }
+  },
+    {
+      id: '102',
+      value: {
+        name: 'UJ',
+        location: 'Johannesburg, SA',
+        degree: 'BSc',
+        field: 'IT',
+        gradDate: '2020'
+      }
+    }
+  ]  
+
+  const [work, setWork] = useState([...tempWork]);
+
+  const [education, setEducation] = useState([...tempStudy]);
 
   const [skills, setSkills] = useState([]);
 
@@ -38,6 +84,15 @@ function Main() {
       <Header activeIndex = {active} />
 
       <section className='form-section'>
+        {active > 0 &&
+          <div className="direction-btn-container">
+            <button 
+                className="back-btn btn-strip"
+                onClick={handleBack}
+            >
+                ← Go Back
+            </button>
+          </div>}
         {active === 1 && work.length > 0 && <WorkCards jobs={work} setJobs={setWork} />}
         {active === 2 && education.length > 0 && <SchoolCards study={education} setStudy={setEducation} />}
 
@@ -79,6 +134,22 @@ function Main() {
                 setInfo = {setSummary}
                />
           </form>
+        </div>
+
+        <div className="direction-btn-container">
+        <button
+          type="button"
+          className="next-btn"
+          onClick={handleNext}
+        >
+          {active === 4 ?
+           "Finish" :
+           "Next: "} 
+           {active === 0 && "Work"}
+           {active === 1 && "Education"}
+           {active === 2 && "Skills"}
+           {active === 3 && "Summary"}
+        </button>
         </div>
       </section>
     </main>
