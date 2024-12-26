@@ -45,8 +45,23 @@
     justify-self: end;
 }
 
-.add-btn_icon svg {
+.add-btn_icon svg,
+.btn-icon svg {
     width: 1.5em;
+}
+
+.skills-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.skills-item {
+    display: flex;
+    gap: 1rem;
+}
+
+.skills-item .label {
+    flex: 1;
 }
 
 .add-skill-btn {
@@ -76,4 +91,33 @@
 .btn-disable {
     pointer-events: none;
     opacity: .3;
+}
+
+.cards {
+    margin-bottom: 2rem;
+    margin-inline: auto;
+    max-width: var(--_max-form-width);
+}
+
+.card-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.card {
+    border: 1px solid;
+    padding-block: 1.5em 1em;
+    padding-inline: 2em 1em;
+    border-radius: 10px;
+}
+
+.card-header {
+    display: flex;
+    margin-bottom: .5rem;
+}
+
+.card-title {
+    flex: 1;
+    font-size: 1.2rem;
+    font-weight: 600;
 }

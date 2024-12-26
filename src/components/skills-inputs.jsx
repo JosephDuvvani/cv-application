@@ -73,7 +73,7 @@ function SkillFields({abilities, setList}) {
         <ul className="skills-list">
             {
                 abilities.map(skill => (
-                    <li key={skill.id}>
+                    <li key={skill.id} className="skills-item">
                         <label className="label">
                             <input
                                 type="text"
@@ -85,10 +85,15 @@ function SkillFields({abilities, setList}) {
 
                         <button
                             type="button"
-                            className={"delete-btn delete-btn_skill"}
+                            className={"delete-btn btn-strip"}
                             onClick={() => handleDelete(skill.id)}
                         >
-                            delete
+                            <span className="card-btn-icon btn-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <title>delete</title>
+                                    <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                                </svg>
+                            </span>
                         </button>
                     </li>
                 ))

@@ -3,11 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './styles/main.css'
 import Header from './components/header.jsx'
 import Heading from './components/heading-inputs.jsx'
-import Work from './components/work-inputs.jsx'
-import Education from './components/education-inputs.jsx'
+import Work, { WorkCards } from './components/work-inputs.jsx'
+import Education, { SchoolCards } from './components/education-inputs.jsx'
 import Skills from './components/skills-inputs.jsx'
 import Summary from './components/summary-input.jsx'
-import Cv from './components/render-cv.jsx'
 
 function Main() {
   const [active, setActive] = useState(0);
@@ -39,6 +38,9 @@ function Main() {
       <Header activeIndex = {active} />
 
       <section className='form-section'>
+        {active === 1 && work.length > 0 && <WorkCards jobs={work} setJobs={setWork} />}
+        {active === 2 && education.length > 0 && <SchoolCards study={education} setStudy={setEducation} />}
+
         <div className="form-container">
           <form action="">
               <Heading
@@ -78,16 +80,6 @@ function Main() {
                />
           </form>
         </div>
-      </section>
-
-      <section className='preview-section'>
-        <Cv
-          heading={heading}
-          work={work}
-          education={education}
-          skills={skills}
-          summary={summary}
-        />   
       </section>
     </main>
   )

@@ -15,6 +15,10 @@ ul, ol {
     list-style: none;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 button {
     font-size: inherit;
     color: inherit;
@@ -123,11 +127,12 @@ main {
 }
 
 .form-section {
+    --_max-form-width: 900px;
     margin-block: 6rem 4rem;
+    padding-inline: 1rem;
 }
 
 .form-container {
     margin: auto;
-    max-width: 900px;
-    padding-inline: 1rem;
+    max-width: var(--_max-form-width);
 }

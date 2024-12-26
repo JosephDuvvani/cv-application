@@ -2,7 +2,7 @@ import { useState } from "react"
 
 export default ({isActive, next, back, jobs, setJobs}) => {
     const [jobInfo, setInfo] = useState({
-        jobTitle: '',
+        title: '',
         employer: '',
         location: '',
         startDate: '',
@@ -12,8 +12,16 @@ export default ({isActive, next, back, jobs, setJobs}) => {
     const inputs = document.querySelectorAll('.clear');
 
     function addJob() {
-        setJobs([...jobs, jobInfo]);
+        const id = crypto.randomUUID();
+        setJobs([...jobs, {value: jobInfo, id: id}]);
         for (let input of inputs) input.value = '';
+        setInfo({
+            title: '',
+            employer: '',
+            location: '',
+            startDate: '',
+            endDate: ''
+        });
     }
 
     return (
@@ -33,7 +41,7 @@ export default ({isActive, next, back, jobs, setJobs}) => {
                         type="text"
                         className="clear"
                         placeholder="e.g. Jr Web Developer"
-                        onChange={e => setInfo({...jobInfo, jobTitle: e.target.value})}
+                        onChange={e => setInfo({...jobInfo, title: e.target.value})}
                     />
                 </label>
 
@@ -93,5 +101,47 @@ export default ({isActive, next, back, jobs, setJobs}) => {
                 </button>
             </div>) : null}
         </>
+    )
+}
+
+export function WorkCards({jobs, setJobs}) {
+    function handleDelete(id) {
+        const temp = [...jobs].filter(job => job.id !== id);
+        setJobs(temp);       
+    }
+
+    return(
+        <div className="cards">
+            <ul className="card-list">
+                {
+                    jobs.map(job => 
+                        <li key={job.id}>
+                            <div className="work-card card">
+                                <header className="card-header">
+                                    <div className="card-title">{job.value.title}, {job.value.employer}</div>
+
+                                    <div className="card-btns">
+
+                                        <button
+                                            type="button"
+                                            className="card-btn btn-strip"
+                                            onClick={() => handleDelete(job.id)}
+                                        >
+                                            <span className="card-btn-icon btn-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <title>delete</title>
+                                                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                                            </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </header>
+                                <div>{job.value.location} | {job.value.startDate} - {job.value.endDate}</div>
+                            </div>
+                        </li>
+                    )
+                }   
+            </ul>
+        </div>
     )
 }
