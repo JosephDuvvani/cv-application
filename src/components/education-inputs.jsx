@@ -40,54 +40,7 @@ export default ({isActive, study, setStudy}) => {
             }
             {isActive && formOpen ?
                 <div className="form-inputs-container">
-                    <label className="label">
-                        <span className="label-text">School Name</span>
-                        <input
-                            type="text"
-                            className="clear"
-                            onChange={e => setInfo({...studyInfo, name: e.target.value})}
-                            placeholder="e.g. Massachusetts Institute of Technology"
-                        />
-                    </label>
-
-                    <label className="label">
-                        <span className="label-text">School Location</span>
-                        <input
-                            type="text"
-                            className="clear"
-                            onChange={e => setInfo({...studyInfo, location: e.target.value})}
-                            placeholder="e.g. Cambridge, Massachusetts"
-                        />
-                    </label>
-
-                    <label className="label">
-                        <span className="label-text">Degree</span>
-                        <input
-                            type="text"
-                            className="clear"
-                            onChange={e => setInfo({...studyInfo, degree: e.target.value})}
-                            placeholder="e.g. Bachelor of Science"
-                        />
-                    </label>
-
-                    <label className="label">
-                        <span className="label-text">Field of Study</span>
-                        <input
-                            type="text"
-                            className="clear"
-                            onChange={e => setInfo({...studyInfo, field: e.target.value})}
-                            placeholder="e.g. Computer Science"
-                        />
-                    </label>
-
-                    <label className="label">
-                        <span className="label-text">Graduation Date (Or Expected Graduation Date)</span>
-                        <input
-                            type="date"
-                            className="clear"
-                            onChange={e => setInfo({...studyInfo, gradDate: e.target.value})}
-                        />
-                    </label>
+                    <Inputs studyInfo={studyInfo} setInfo={setInfo} />
 
                     <button
                         type="button"
@@ -108,10 +61,92 @@ export default ({isActive, study, setStudy}) => {
     )
 }
 
+function Inputs({studyInfo, setInfo}) {
+    return (
+        <>
+            <label className="label">
+                <span className="label-text">School Name</span>
+                <input
+                    type="text"
+                    className="clear"
+                    value={studyInfo.name}
+                    onChange={e => setInfo({...studyInfo, name: e.target.value})}
+                    placeholder="e.g. Massachusetts Institute of Technology"
+                />
+            </label>
+
+            <label className="label">
+                <span className="label-text">School Location</span>
+                <input
+                    type="text"
+                    className="clear"
+                    value={studyInfo.location}
+                    onChange={e => setInfo({...studyInfo, location: e.target.value})}
+                    placeholder="e.g. Cambridge, Massachusetts"
+                />
+            </label>
+
+            <label className="label">
+                <span className="label-text">Degree</span>
+                <input
+                    type="text"
+                    className="clear"
+                    value={studyInfo.degree}
+                    onChange={e => setInfo({...studyInfo, degree: e.target.value})}
+                    placeholder="e.g. Bachelor of Science"
+                />
+            </label>
+
+            <label className="label">
+                <span className="label-text">Field of Study</span>
+                <input
+                    type="text"
+                    className="clear"
+                    value={studyInfo.field}
+                    onChange={e => setInfo({...studyInfo, field: e.target.value})}
+                    placeholder="e.g. Computer Science"
+                />
+            </label>
+
+            <label className="label">
+                <span className="label-text">Graduation Date (Or Expected Graduation Date)</span>
+                <input
+                    type="date"
+                    className="clear"
+                    value={studyInfo.gradDate.split('/').join('-')}
+                    onChange={e => setInfo({...studyInfo, gradDate: e.target.value})}
+                />
+            </label>
+        </>
+    )
+}
+
 export function SchoolCards({study, setStudy}) {
+    const [editId, setEditId] = useState('');
+    const [studyInfo, setInfo] = useState({
+        name: '',
+        location: '',
+        degree: '',
+        field: '',
+        gradDate: ''
+    })
+
     function handleDelete(id) {
         const temp = [...study].filter(school => school.id !== id);
         setStudy(temp);
+    }
+
+    function showEdit(school) {
+        setInfo(school.value);
+        setEditId(school.id);
+    }
+
+    function saveEdit(id) {
+        const temp = [...study].map(school => 
+            school.id === id ? school = {...school, value: studyInfo} : school
+        )
+        setStudy(temp);
+        setEditId('');
     }
 
     return (
@@ -129,6 +164,19 @@ export function SchoolCards({study, setStudy}) {
                                     <div className="card-btns">
                                         <button
                                             type="button"
+                                            className="card-btn card-btn_edit btn-strip"
+                                            onClick={() => showEdit(school)}
+                                        >
+                                            <span className="card-btn-icon btn-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <title>square-edit-outline</title>
+                                                    <path d="M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z" />
+                                                </svg>
+                                            </span>
+                                        </button>
+
+                                        <button
+                                            type="button"
                                             className="card-btn  btn-strip"
                                             onClick={() => handleDelete(school.id)}
                                         >
@@ -141,7 +189,33 @@ export function SchoolCards({study, setStudy}) {
                                         </button>
                                     </div>
                                 </header>
+
                                 <div>{school.value.location} | {school.value.gradDate}</div>
+
+                                {
+                                    editId === school.id &&
+                                    <form action="" className="edit-form">
+                                        <Inputs studyInfo={studyInfo} setInfo={setInfo} />
+
+                                        <div className="edit-btns">
+                                            <button 
+                                                type="button"
+                                                className="save-edit-btn"
+                                                onClick={() => saveEdit(school.id)}
+                                            >
+                                                Save                                          
+                                            </button>
+
+                                            <button 
+                                                type="button"
+                                                className="cancel-edit-btn"
+                                                onClick={() => setEditId('')}
+                                            >
+                                                Cancel                                          
+                                            </button>
+                                        </div>
+                                    </form>
+                                }
                             </div>
                         </li>
                     )

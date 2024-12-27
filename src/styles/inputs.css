@@ -115,6 +115,29 @@
     font-weight: 600;
 }
 
+.card-btn_edit {
+    margin-right: 1rem;
+}
+
+.edit-form {
+    margin-block: 2rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.edit-btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.save-edit-btn,
+.cancel-edit-btn {
+    padding: 1rem 2rem;
+    border-radius: 50vh;
+}
+
 .add-more-btn {
     width: 100%;
     display: flex;
