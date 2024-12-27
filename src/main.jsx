@@ -14,8 +14,8 @@ function Main() {
     firstname: '',
     lastname: '',
     profession: '',
-    phone: ' ',
-    email: ' '
+    phone: '',
+    email: ''
   });
 
   const tempWork = [
@@ -49,7 +49,7 @@ function Main() {
         location: 'Cape Town, SA',
         degree: 'BSc',
         field: 'Computer Science',
-        gradDate: '2018'
+        gradDate: '2018/03/12'
       }
   },
     {
@@ -59,7 +59,7 @@ function Main() {
         location: 'Johannesburg, SA',
         degree: 'BSc',
         field: 'IT',
-        gradDate: '2020'
+        gradDate: '2020/02/05'
       }
     }
   ]  
@@ -68,12 +68,30 @@ function Main() {
 
   const [education, setEducation] = useState([...tempStudy]);
 
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState([{value: '', id: crypto.randomUUID()}]);
 
   const [summary, setSummary] = useState('');
 
+  const [workFormOpen, setWorkFormOpen] = useState(work.length === 0);
+
+  const [schoolFormOpen, setSchoolFormOpen] = useState(education.length === 0);
+
+  function isEmailValid() {
+    const regEx = (/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/);
+
+    if (!heading.email.match(regEx)) return false;
+    return true;
+  }
+
   function handleNext() {
-    setActive(active + 1);
+    if (active === 0 && isEmailValid()) {
+      setActive(active + 1);
+      document.querySelector('.label_email').classList.toggle('error', false);
+    } else if (active === 0 && !isEmailValid()) {
+      document.querySelector('.label_email').classList.toggle('error', true);
+    } else {
+      setActive(active + 1);
+    }
   }
   function handleBack() {
     setActive(active - 1);
@@ -93,8 +111,20 @@ function Main() {
                 ← Go Back
             </button>
           </div>}
-        {active === 1 && work.length > 0 && <WorkCards jobs={work} setJobs={setWork} />}
-        {active === 2 && education.length > 0 && <SchoolCards study={education} setStudy={setEducation} />}
+        {active === 1 && work.length > 0 && 
+          <WorkCards 
+            jobs={work} 
+            setJobs={setWork} 
+            formOpen={workFormOpen} 
+            setFormOpen={setWorkFormOpen} 
+          />}
+        {active === 2 && education.length > 0 && 
+          <SchoolCards 
+            study={education} 
+            setStudy={setEducation} 
+            formOpen={schoolFormOpen}
+            setFormOpen={setSchoolFormOpen}
+          />}
 
         <div className="form-container">
           <form action="">
@@ -104,6 +134,7 @@ function Main() {
                 back = {handleBack}
                 info = {heading}
                 setInfo = {setHeading}
+                isEmailValid={isEmailValid}
                />
               <Work
                 isActive = {active === 1}
@@ -111,6 +142,8 @@ function Main() {
                 back = {handleBack}
                 jobs={work}
                 setJobs={setWork}
+                formOpen={workFormOpen}
+                setFormOpen={setWorkFormOpen}
                />
                <Education
                 isActive = {active === 2}
@@ -118,6 +151,8 @@ function Main() {
                 back = {handleBack}
                 study={education}
                 setStudy={setEducation}
+                formOpen={schoolFormOpen}
+                setFormOpen={setSchoolFormOpen}
                />
                <Skills
                 isActive = {active === 3}

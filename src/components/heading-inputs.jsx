@@ -1,8 +1,9 @@
 import '../styles/inputs.css';
 
-export default ({isActive, info, setInfo}) => {
+export default ({isActive, info, setInfo, isEmailValid}) => {
     function handleChange(e) {
         setInfo({ ...info, [e.target.name]: e.target.value });
+        if (isEmailValid()) document.querySelector('.label_email').classList.toggle('error', false);
       }
     return (
         <>
@@ -51,15 +52,18 @@ export default ({isActive, info, setInfo}) => {
                 />               
             </label>
 
-            <label className="label">
-                <span className="label-text">Email</span>
+            <label className="label label_email validate">
+                <span className="label-text">Email *</span>
                 <input
                     type="email"
                     placeholder="e.g. peterquill@yahoo.com"
                     name='email'
                     value={info.email}
                     onChange={handleChange}
+                    autoComplete='off'
+                    required
                 />
+                <span className="error-message">You must enter a valid email address. e.g example@gmail.com </span>
             </label>
         </div>) : null}
         </>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default ({isActive, study, setStudy}) => {
+export default ({isActive, study, setStudy, formOpen, setFormOpen}) => {
         const [studyInfo, setInfo] = useState({
             name: '',
             location: '',
@@ -8,11 +8,15 @@ export default ({isActive, study, setStudy}) => {
             field: '',
             gradDate: ''
         })
-        const [formOpen, setFormOpen] = useState(study.length === 0);
     
         const inputs = document.querySelectorAll('.clear');
     
-        function handleAdd() {  
+        function handleAdd() {
+            if (studyInfo.name === '') {
+                document.querySelector('.label_school-name').classList.toggle('error', true);
+                return;
+            }
+
             const id = crypto.randomUUID()
             setStudy([...study, {value: studyInfo, id: id}]);
             for (let input of inputs) input.value = '';
@@ -25,6 +29,9 @@ export default ({isActive, study, setStudy}) => {
             })
             setFormOpen(false)
         }
+
+        if (studyInfo.name !== '')
+            document.querySelector('.label_school-name').classList.toggle('error', false);
 
     return (
         <>
@@ -62,17 +69,23 @@ export default ({isActive, study, setStudy}) => {
 }
 
 function Inputs({studyInfo, setInfo}) {
+    function handleNameChange(e) {
+        setInfo({...studyInfo, name: e.target.value})
+        if (e.target.value !== '')
+            document.querySelector('.label_school-name').classList.toggle('error', false);
+    }
     return (
         <>
-            <label className="label">
+            <label className="label label_school-name validate">
                 <span className="label-text">School Name</span>
                 <input
                     type="text"
                     className="clear"
                     value={studyInfo.name}
-                    onChange={e => setInfo({...studyInfo, name: e.target.value})}
+                    onChange={e => handleNameChange(e)}
                     placeholder="e.g. Massachusetts Institute of Technology"
                 />
+                <span className="error-message">You must enter the school name</span>
             </label>
 
             <label className="label">
@@ -121,7 +134,7 @@ function Inputs({studyInfo, setInfo}) {
     )
 }
 
-export function SchoolCards({study, setStudy}) {
+export function SchoolCards({study, setStudy, formOpen, setFormOpen}) {
     const [editId, setEditId] = useState('');
     const [studyInfo, setInfo] = useState({
         name: '',
@@ -138,10 +151,18 @@ export function SchoolCards({study, setStudy}) {
 
     function showEdit(school) {
         setInfo(school.value);
+        setFormOpen(false)
         setEditId(school.id);
     }
 
+    if (formOpen && editId !== '') setEditId('');
+
     function saveEdit(id) {
+        if (studyInfo.name === '') {
+            document.querySelector('.label_school-name').classList.toggle('error', true);
+            return;
+        }
+
         const temp = [...study].map(school => 
             school.id === id ? school = {...school, value: studyInfo} : school
         )

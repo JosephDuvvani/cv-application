@@ -32,6 +32,31 @@
     grid-row: 4;
 }
 
+.validate {
+    position: relative;
+}
+
+.validate.error {
+    color: hsl(0, 98%, 40%);
+}
+
+.validate.error input {
+    border: 2px solid hsl(0, 98%, 40%);
+    box-sizing: border-box;
+}
+
+.error-message {
+    position: absolute;
+    top: calc(100% + .3em);
+    font-size: .7rem;
+    font-weight: 600;
+    display: none;
+}
+
+.validate.error .error-message {
+    display: initial;
+}
+
 .add-btn {
     display: flex;
     align-items: center;
@@ -122,7 +147,7 @@
 .edit-form {
     margin-block: 2rem;
     display: grid;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .edit-btns {

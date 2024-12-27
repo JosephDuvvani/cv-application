@@ -1,18 +1,22 @@
 import { useState } from "react"
 
-export default ({isActive, jobs, setJobs}) => {
+export default ({isActive, jobs, setJobs, formOpen, setFormOpen}) => {
     const [jobInfo, setInfo] = useState({
         title: '',
         employer: '',
         location: '',
         startDate: '',
         endDate: ''
-    })
-    const [formOpen, setFormOpen] = useState(jobs.length === 0);
+    });
 
     const inputs = document.querySelectorAll('.clear');
 
     function addJob() {
+        if (jobInfo.title === '') {
+            document.querySelector('.label_job-title').classList.toggle('error', true);
+            return;
+        }
+
         const id = crypto.randomUUID();
         setJobs([...jobs, {value: jobInfo, id: id}]);
         for (let input of inputs) input.value = '';
@@ -25,6 +29,8 @@ export default ({isActive, jobs, setJobs}) => {
         });
         setFormOpen(false)
     }
+
+    if (jobInfo.title !== '') document.querySelector('.label_job-title').classList.toggle('error', false);
 
     return (
         <>
@@ -60,17 +66,26 @@ export default ({isActive, jobs, setJobs}) => {
 }
 
 function Inputs({jobInfo, setInfo}) {
+    function handleTitleChange(e) {
+        setInfo({...jobInfo, title: e.target.value})
+
+        if (e.target.value !== '')
+            document.querySelector('.label_job-title').classList.toggle('error', false);
+    }
+
     return ( 
         <>     
-            <label className="label">
-                <span className="label-text">Job Title</span>
+            <label className="label label_job-title validate">
+                <span className="label-text">Job Title *</span>
                 <input 
                     type="text"
                     className="clear"
                     placeholder="e.g. Jr Web Developer"
                     value={jobInfo.title}
-                    onChange={e => setInfo({...jobInfo, title: e.target.value})}
+                    onChange={e => handleTitleChange(e)}
+                    required
                 />
+                <span className="error-message">You must enter your job title</span>
             </label>
 
             <label className="label">
@@ -118,7 +133,7 @@ function Inputs({jobInfo, setInfo}) {
     )
 }
 
-export function WorkCards({jobs, setJobs}) {
+export function WorkCards({jobs, setJobs, formOpen, setFormOpen}) {
     const [editId, setEditId] = useState('');
     const [jobInfo, setInfo] = useState({
         title: '',
@@ -130,15 +145,24 @@ export function WorkCards({jobs, setJobs}) {
   
     function handleDelete(id) {
         const temp = [...jobs].filter(job => job.id !== id);
-        setJobs(temp);       
+        setJobs(temp);
+        if (jobs.length === 1) setFormOpen(true);    
     }
 
     function showEdit(job) {
         setInfo(job.value);
+        setFormOpen(false);
         setEditId(job.id);
     }
 
+    if (formOpen && editId !== '') setEditId('');
+
     function saveEdit(id) {
+        if (jobInfo.title === '') {
+            document.querySelector('.label_job-title').classList.toggle('error', true);
+            return;
+        }
+
         const temp = [...jobs].map(job => 
             job.id === id ? job = {...job, value: jobInfo} : job
         )
