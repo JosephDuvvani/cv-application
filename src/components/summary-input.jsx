@@ -1,18 +1,31 @@
-export default ({isActive, setInfo}) => {
+import { useState } from "react";
+
+export default ({isActive, info, setInfo, populateStorage}) => {
+    const [populate, setPopulate] = useState(false);
+
+    function handleInput(e) {
+        setInfo(e.target.value);
+        setPopulate(true);
+    }
+
+    if (populate) {
+        populateStorage();
+        setPopulate(false);
+    }
+
     return (
         <>
             {
                 isActive ?
                     (
                         <div className="form-inputs-container form-inputs-container_summary">
-                            <div 
+                            <textarea 
                                 className="summary-input"
-                                role="textbox"
-                                contentEditable
                                 aria-label="Tell us about your background"
-                                onInput={e => setInfo(e.target.textContent)}
+                                onChange={e => handleInput(e)}
+                                value={info}
                             >
-                            </div>
+                            </textarea>
                         </div>
                     ) :
                     null

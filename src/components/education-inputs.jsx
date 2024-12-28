@@ -1,13 +1,14 @@
 import { useState } from "react";
 
-export default ({isActive, study, setStudy, formOpen, setFormOpen}) => {
+export default ({isActive, study, setStudy, formOpen, setFormOpen, populateStorage}) => {
         const [studyInfo, setInfo] = useState({
             name: '',
             location: '',
             degree: '',
             field: '',
             gradDate: ''
-        })
+        });
+        const [populate, setPopulate] = useState(false);
     
         const inputs = document.querySelectorAll('.clear');
     
@@ -28,6 +29,12 @@ export default ({isActive, study, setStudy, formOpen, setFormOpen}) => {
                 gradDate: ''
             })
             setFormOpen(false)
+            setPopulate(true);
+        }
+
+        if (populate) {
+            populateStorage();
+            setPopulate(false);
         }
 
         if (studyInfo.name !== '')
@@ -134,7 +141,7 @@ function Inputs({studyInfo, setInfo}) {
     )
 }
 
-export function SchoolCards({study, setStudy, formOpen, setFormOpen}) {
+export function SchoolCards({study, setStudy, formOpen, setFormOpen, populateStorage}) {
     const [editId, setEditId] = useState('');
     const [studyInfo, setInfo] = useState({
         name: '',
@@ -142,11 +149,13 @@ export function SchoolCards({study, setStudy, formOpen, setFormOpen}) {
         degree: '',
         field: '',
         gradDate: ''
-    })
+    });
+    const [populate, setPopulate] = useState(false);
 
     function handleDelete(id) {
         const temp = [...study].filter(school => school.id !== id);
         setStudy(temp);
+        setPopulate(true);
     }
 
     function showEdit(school) {
@@ -168,6 +177,12 @@ export function SchoolCards({study, setStudy, formOpen, setFormOpen}) {
         )
         setStudy(temp);
         setEditId('');
+        setPopulate(true);
+    }
+
+    if (populate) {
+        populateStorage();
+        setPopulate(false);
     }
 
     return (

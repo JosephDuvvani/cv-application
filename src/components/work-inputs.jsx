@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default ({isActive, jobs, setJobs, formOpen, setFormOpen}) => {
+export default ({isActive, jobs, setJobs, formOpen, setFormOpen, populateStorage}) => {
     const [jobInfo, setInfo] = useState({
         title: '',
         employer: '',
@@ -8,6 +8,7 @@ export default ({isActive, jobs, setJobs, formOpen, setFormOpen}) => {
         startDate: '',
         endDate: ''
     });
+    const [populate, setPopulate] = useState(false);
 
     const inputs = document.querySelectorAll('.clear');
 
@@ -28,6 +29,12 @@ export default ({isActive, jobs, setJobs, formOpen, setFormOpen}) => {
             endDate: ''
         });
         setFormOpen(false)
+        setPopulate(true);
+    }
+
+    if (populate) {
+        populateStorage();
+        setPopulate(false);
     }
 
     if (jobInfo.title !== '') document.querySelector('.label_job-title').classList.toggle('error', false);
@@ -133,8 +140,9 @@ function Inputs({jobInfo, setInfo}) {
     )
 }
 
-export function WorkCards({jobs, setJobs, formOpen, setFormOpen}) {
+export function WorkCards({jobs, setJobs, formOpen, setFormOpen, populateStorage}) {
     const [editId, setEditId] = useState('');
+    const [populate, setPopulate] = useState(false);
     const [jobInfo, setInfo] = useState({
         title: '',
         employer: '',
@@ -146,7 +154,8 @@ export function WorkCards({jobs, setJobs, formOpen, setFormOpen}) {
     function handleDelete(id) {
         const temp = [...jobs].filter(job => job.id !== id);
         setJobs(temp);
-        if (jobs.length === 1) setFormOpen(true);    
+        if (jobs.length === 1) setFormOpen(true);
+        setPopulate(true);  
     }
 
     function showEdit(job) {
@@ -168,6 +177,12 @@ export function WorkCards({jobs, setJobs, formOpen, setFormOpen}) {
         )
         setJobs(temp);
         setEditId('');
+        setPopulate(true);
+    }
+
+    if (populate) {
+        populateStorage();
+        setPopulate(false);
     }
 
     return(

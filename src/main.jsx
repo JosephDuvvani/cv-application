@@ -9,68 +9,44 @@ import Skills from './components/skills-inputs.jsx'
 import Summary from './components/summary-input.jsx'
 
 function Main() {
+  //Local Storage
+  const storeHeading = () => localStorage.setItem('heading', JSON.stringify(heading));
+
+  const storeWork = () => localStorage.setItem('work', JSON.stringify(work));
+
+  const storeEducation = () => localStorage.setItem('education', JSON.stringify(education));
+
+  const storeSkills = () => localStorage.setItem('skills', JSON.stringify(skills));
+
+  const storeSummary = () => localStorage.setItem('summary', summary);
+ 
+  if (!localStorage.getItem('heading')) {
+    const string = JSON.stringify({
+      firstname: '',
+      lastname: '',
+      profession: '',
+      phone: '',
+      email: ''
+    })
+    localStorage.setItem('heading', string);
+  }
+  if (!localStorage.getItem('work')) localStorage.setItem('work', JSON.stringify([]));
+  if (!localStorage.getItem('education')) localStorage.setItem('education', JSON.stringify([]));
+  if (!localStorage.getItem('skills')) 
+    localStorage.setItem('skills', JSON.stringify([{value: '', id: crypto.randomUUID()}]));
+  if (!localStorage.getItem('summary')) localStorage.setItem('summary', '');
+
   const [active, setActive] = useState(0);
-  const [heading, setHeading] = useState({
-    firstname: '',
-    lastname: '',
-    profession: '',
-    phone: '',
-    email: ''
-  });
 
-  const tempWork = [
-    {
-      id: '101',
-      value: {
-        title: 'Web Dev',
-        employer: 'Google',
-        location: 'London (remote)',
-        startDate: '2025/06/04',
-        endDate: '2027/06/01'
-      }
-  },
-    {
-      id: '102',
-      value: {
-        title: 'Software Developer',
-        employer: 'Meta',
-        location: 'London (remote)',
-        startDate: '2025/06/04',
-        endDate: '2027/06/01'
-      }
-    }
-  ]
+  const [heading, setHeading] = useState(JSON.parse(localStorage.getItem('heading')));
 
-  const tempStudy = [
-    {
-      id: '101',
-      value: {
-        name: 'UCT',
-        location: 'Cape Town, SA',
-        degree: 'BSc',
-        field: 'Computer Science',
-        gradDate: '2018/03/12'
-      }
-  },
-    {
-      id: '102',
-      value: {
-        name: 'UJ',
-        location: 'Johannesburg, SA',
-        degree: 'BSc',
-        field: 'IT',
-        gradDate: '2020/02/05'
-      }
-    }
-  ]  
+  const [work, setWork] = useState(JSON.parse(localStorage.getItem('work')));
 
-  const [work, setWork] = useState([...tempWork]);
+  const [education, setEducation] = useState(JSON.parse(localStorage.getItem('education')));
 
-  const [education, setEducation] = useState([...tempStudy]);
+  const [skills, setSkills] = useState(JSON.parse(localStorage.getItem('skills')));
 
-  const [skills, setSkills] = useState([{value: '', id: crypto.randomUUID()}]);
-
-  const [summary, setSummary] = useState('');
+  const [summary, setSummary] = useState(localStorage.getItem('summary'));
 
   const [workFormOpen, setWorkFormOpen] = useState(work.length === 0);
 
@@ -116,7 +92,8 @@ function Main() {
             jobs={work} 
             setJobs={setWork} 
             formOpen={workFormOpen} 
-            setFormOpen={setWorkFormOpen} 
+            setFormOpen={setWorkFormOpen}
+            populateStorage={storeWork}
           />}
         {active === 2 && education.length > 0 && 
           <SchoolCards 
@@ -124,6 +101,7 @@ function Main() {
             setStudy={setEducation} 
             formOpen={schoolFormOpen}
             setFormOpen={setSchoolFormOpen}
+            populateStorage={storeEducation}
           />}
 
         <div className="form-container">
@@ -135,6 +113,7 @@ function Main() {
                 info = {heading}
                 setInfo = {setHeading}
                 isEmailValid={isEmailValid}
+                populateStorage={storeHeading}
                />
               <Work
                 isActive = {active === 1}
@@ -144,6 +123,7 @@ function Main() {
                 setJobs={setWork}
                 formOpen={workFormOpen}
                 setFormOpen={setWorkFormOpen}
+                populateStorage={storeWork}
                />
                <Education
                 isActive = {active === 2}
@@ -153,6 +133,7 @@ function Main() {
                 setStudy={setEducation}
                 formOpen={schoolFormOpen}
                 setFormOpen={setSchoolFormOpen}
+                populateStorage={storeEducation}
                />
                <Skills
                 isActive = {active === 3}
@@ -160,6 +141,7 @@ function Main() {
                 back = {handleBack}
                 skills={skills}
                 setSkills={setSkills}
+                populateStorage={storeSkills}
                />
                <Summary
                 isActive = {active === 4}
@@ -167,6 +149,7 @@ function Main() {
                 back = {handleBack}
                 info = {summary}
                 setInfo = {setSummary}
+                populateStorage={storeSummary}
                />
           </form>
         </div>

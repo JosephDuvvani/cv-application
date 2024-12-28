@@ -1,10 +1,11 @@
 import '../styles/inputs.css';
 
-export default ({isActive, info, setInfo, isEmailValid}) => {
+export default ({isActive, info, setInfo, isEmailValid, populateStorage}) => {
     function handleChange(e) {
         setInfo({ ...info, [e.target.name]: e.target.value });
         if (isEmailValid()) document.querySelector('.label_email').classList.toggle('error', false);
       }
+      populateStorage();
     return (
         <>
         {isActive ?

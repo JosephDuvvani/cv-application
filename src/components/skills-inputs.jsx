@@ -1,11 +1,18 @@
 import { useState } from "react"
 
-export default ({isActive, skills, setSkills}) => {
+export default ({isActive, skills, setSkills, populateStorage}) => {
+    const [populate, setPopulate] = useState(false);
+
     function addSkill() {
         const id = crypto.randomUUID();
         setSkills([...skills, {value: '', id: id}]);
+        setPopulate(true);
     }
 
+    if (populate) {
+        populateStorage();
+        setPopulate(false);
+    }
     
     function isFull() {
         for (let skill of skills) {
@@ -18,7 +25,11 @@ export default ({isActive, skills, setSkills}) => {
         <>
             {isActive ?
                 <div className="form-inputs-container">
-                    <SkillFields abilities={skills} setList={setSkills} />
+                    <SkillFields
+                        abilities={skills} 
+                        setList={setSkills} 
+                        populateStorage={populateStorage}
+                    />
 
                     <button
                     type="button"
@@ -39,18 +50,27 @@ export default ({isActive, skills, setSkills}) => {
     )
 }
 
-function SkillFields({abilities, setList}) {
+function SkillFields({abilities, setList, populateStorage}) {
+    const [populate, setPopulate] = useState(false);
+
     function handleEdit(value, id) {
         let temp = [...abilities].map(skill => 
             skill = skill.id === id ? {...skill, value: value} : skill
         );
         setList(temp)
+        setPopulate(true)
     }
 
     function handleDelete(id) {
         const temp = [...abilities].filter(skill => skill.id !== id)
         console.log(temp)
         setList(temp)
+        setPopulate(true)
+    }
+
+    if (populate) {
+        populateStorage();
+        setPopulate(false);
     }
 
     return (
