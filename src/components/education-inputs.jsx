@@ -32,6 +32,17 @@ export default ({isActive, study, setStudy, formOpen, setFormOpen, populateStora
             setPopulate(true);
         }
 
+        function handleClose() {
+            setInfo({
+                name: '',
+                location: '',
+                degree: '',
+                field: '',
+                gradDate: ''
+            })
+            setFormOpen(false);
+        }
+
         if (populate) {
             populateStorage();
             setPopulate(false);
@@ -56,18 +67,23 @@ export default ({isActive, study, setStudy, formOpen, setFormOpen, populateStora
                 <div className="form-inputs-container">
                     <Inputs studyInfo={studyInfo} setInfo={setInfo} />
 
-                    <button
+                    <div className="form-field-btns">
+                        <button
+                            type="button"
+                            className="close-btn form-field-btn"
+                            onClick={handleClose}
+                        >
+                            Close
+                        </button>
+
+                        <button
                         type="button"
-                        className="add-btn add-job-btn btn-strip"
+                        className="add-job-btn form-field-btn"
                         onClick={handleAdd}
-                    >
-                        <span className="add-btn_icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
-                                </svg>
-                        </span>
-                        Add Job
-                    </button>
+                        >
+                            Add Education
+                        </button>
+                    </div>
                 </div> :
                 null
             }

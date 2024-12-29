@@ -57,9 +57,15 @@
     display: initial;
 }
 
-.add-btn {
-    display: flex;
-    align-items: center;
+.form-field-btns {
+    grid-column: 1/-1;
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    width: 100%;
+}
+
+.add-job-btn {
     justify-self: end;
 }
 
@@ -84,11 +90,6 @@
 
 .add-skill-btn {
     grid-row: 3;
-}
-
-.add-job-btn {
-    grid-row: 5;
-    grid-column: -2;
 }
 
 .form-inputs-container_summary {

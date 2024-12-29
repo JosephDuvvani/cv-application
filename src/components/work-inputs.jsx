@@ -32,6 +32,17 @@ export default ({isActive, jobs, setJobs, formOpen, setFormOpen, populateStorage
         setPopulate(true);
     }
 
+    function handleClose() {
+        setInfo({
+            title: '',
+            employer: '',
+            location: '',
+            startDate: '',
+            endDate: ''
+        });
+        setFormOpen(false);
+    }
+
     if (populate) {
         populateStorage();
         setPopulate(false);
@@ -55,18 +66,23 @@ export default ({isActive, jobs, setJobs, formOpen, setFormOpen, populateStorage
             <div className="form-inputs-container">          
             <Inputs jobInfo={jobInfo} setInfo={setInfo} />
 
-            <button
+            <div className="form-field-btns">
+                <button
+                    type="button"
+                    className="close-btn form-field-btn"
+                    onClick={handleClose}
+                >
+                    Close
+                </button>
+
+                <button
                 type="button"
-                className="add-btn add-job-btn btn-strip"
+                className="add-job-btn form-field-btn"
                 onClick={addJob}
-            >
-                <span className="add-btn_icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
-                        </svg>
-                </span>
-                Add Job
-            </button>
+                >
+                    Add Job
+                </button>
+            </div>
             </div>) : null}
         </>
     )
