@@ -7,7 +7,7 @@ export default ({activeIndex}) => {
     return (
         <header className="main-header">  
             <div className="main-header-logo logo">
-                CV<span className="logo-separator"></span>fy
+                Resume<span className="logo-plus">Beta</span>
             </div>
 
             <nav className="navbar">

@@ -174,3 +174,13 @@
     border-style: dashed;
     border-radius: 10px;
 }
+
+@media (max-width: 600px) {
+    .form-inputs-container {
+        grid-template-columns: initial;
+    }
+
+    .form-inputs-container .form-field-btns {
+        grid-row: initial;
+    }
+}
