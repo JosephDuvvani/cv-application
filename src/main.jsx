@@ -1,4 +1,4 @@
-import { act, StrictMode, useState } from 'react'
+import { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/main.css'
 import Header from './components/header.jsx'
@@ -7,6 +7,7 @@ import Work, { WorkCards } from './components/work-inputs.jsx'
 import Education, { SchoolCards } from './components/education-inputs.jsx'
 import Skills from './components/skills-inputs.jsx'
 import Summary from './components/summary-input.jsx'
+import Resume from './components/resume.jsx'
 
 function Main() {
   //Local Storage
@@ -77,7 +78,7 @@ function Main() {
     <main>
       <Header activeIndex = {active} />
 
-      <section className='form-section'>
+      <div className="content">
         {active > 0 &&
           <div className="direction-btn-container">
             <button 
@@ -86,90 +87,106 @@ function Main() {
             >
                 ← Go Back
             </button>
-          </div>}
-        {active === 1 && work.length > 0 && 
-          <WorkCards 
-            jobs={work} 
-            setJobs={setWork} 
-            formOpen={workFormOpen} 
-            setFormOpen={setWorkFormOpen}
-            populateStorage={storeWork}
-          />}
-        {active === 2 && education.length > 0 && 
-          <SchoolCards 
-            study={education} 
-            setStudy={setEducation} 
-            formOpen={schoolFormOpen}
-            setFormOpen={setSchoolFormOpen}
-            populateStorage={storeEducation}
-          />}
+          </div>
+        }
+        {active >= 0 && active < 5 &&
+        <section className='form-section'>
+          {active === 1 && work.length > 0 && 
+            <WorkCards 
+              jobs={work} 
+              setJobs={setWork} 
+              formOpen={workFormOpen} 
+              setFormOpen={setWorkFormOpen}
+              populateStorage={storeWork}
+            />}
+          {active === 2 && education.length > 0 && 
+            <SchoolCards 
+              study={education} 
+              setStudy={setEducation} 
+              formOpen={schoolFormOpen}
+              setFormOpen={setSchoolFormOpen}
+              populateStorage={storeEducation}
+            />}
 
-        <div className="form-container">
-          <form action="">
-              <Heading
-                isActive = {active === 0}
-                next = {handleNext}
-                back = {handleBack}
-                info = {heading}
-                setInfo = {setHeading}
-                isEmailValid={isEmailValid}
-                populateStorage={storeHeading}
-               />
-              <Work
-                isActive = {active === 1}
-                next = {handleNext}
-                back = {handleBack}
-                jobs={work}
-                setJobs={setWork}
-                formOpen={workFormOpen}
-                setFormOpen={setWorkFormOpen}
-                populateStorage={storeWork}
-               />
-               <Education
-                isActive = {active === 2}
-                next = {handleNext}
-                back = {handleBack}
-                study={education}
-                setStudy={setEducation}
-                formOpen={schoolFormOpen}
-                setFormOpen={setSchoolFormOpen}
-                populateStorage={storeEducation}
-               />
-               <Skills
-                isActive = {active === 3}
-                next = {handleNext}
-                back = {handleBack}
-                skills={skills}
-                setSkills={setSkills}
-                populateStorage={storeSkills}
-               />
-               <Summary
-                isActive = {active === 4}
-                next = {handleNext}
-                back = {handleBack}
-                info = {summary}
-                setInfo = {setSummary}
-                populateStorage={storeSummary}
-               />
-          </form>
-        </div>
+          <div className="form-container">
+            <form action="">
+                <Heading
+                  isActive = {active === 0}
+                  next = {handleNext}
+                  back = {handleBack}
+                  info = {heading}
+                  setInfo = {setHeading}
+                  isEmailValid={isEmailValid}
+                  populateStorage={storeHeading}
+                 />
+                <Work
+                  isActive = {active === 1}
+                  next = {handleNext}
+                  back = {handleBack}
+                  jobs={work}
+                  setJobs={setWork}
+                  formOpen={workFormOpen}
+                  setFormOpen={setWorkFormOpen}
+                  populateStorage={storeWork}
+                 />
+                 <Education
+                  isActive = {active === 2}
+                  next = {handleNext}
+                  back = {handleBack}
+                  study={education}
+                  setStudy={setEducation}
+                  formOpen={schoolFormOpen}
+                  setFormOpen={setSchoolFormOpen}
+                  populateStorage={storeEducation}
+                 />
+                 <Skills
+                  isActive = {active === 3}
+                  next = {handleNext}
+                  back = {handleBack}
+                  skills={skills}
+                  setSkills={setSkills}
+                  populateStorage={storeSkills}
+                 />
+                 <Summary
+                  isActive = {active === 4}
+                  next = {handleNext}
+                  back = {handleBack}
+                  info = {summary}
+                  setInfo = {setSummary}
+                  populateStorage={storeSummary}
+                 />
+            </form>
+          </div>
+        </section>}
 
+        {active < 5 &&
         <div className="direction-btn-container">
-        <button
-          type="button"
-          className="next-btn"
-          onClick={handleNext}
-        >
-          {active === 4 ?
-           "Finish" :
-           "Next: "} 
-           {active === 0 && "Work"}
-           {active === 1 && "Education"}
-           {active === 2 && "Skills"}
-           {active === 3 && "Summary"}
-        </button>
-        </div>
-      </section>
+          <button
+            type="button"
+            className="next-btn"
+            onClick={handleNext}
+          >
+            {active === 4 ?
+             "Finish" :
+             "Next: "} 
+             {active === 0 && "Work"}
+             {active === 1 && "Education"}
+             {active === 2 && "Skills"}
+             {active === 3 && "Summary"}
+          </button>
+        </div>}
+
+        {active === 5 &&
+        <section className="resume-section">
+          <Resume
+            personal={heading}
+            work={work}
+            education={education}
+            skills={skills}
+            summary={summary}
+          />
+        </section>}
+      </div>
     </main>
   )
 }

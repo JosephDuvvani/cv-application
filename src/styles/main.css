@@ -11,6 +11,11 @@
     box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 ul, ol {
     list-style: none;
 }
@@ -184,10 +189,13 @@ main {
     }
 }
 
-.form-section {
-    --_max-form-width: 900px;
+.content {
     margin-block: 6rem 4rem;
     padding-inline: 1rem;
+}
+
+.form-section {
+    --_max-form-width: 900px;
 }
 
 .direction-btn-container {
@@ -202,6 +210,10 @@ main {
     max-width: var(--_max-form-width);
 }
 
+.summary-input {
+    resize: none;
+}
+
 .back-btn {
     margin-bottom: 2rem;
 }
@@ -212,4 +224,127 @@ main {
     padding: 1rem 2rem;
     border-radius: 50vh;
     margin-top: 2rem;
+}
+
+.resume-section {
+    display: grid;
+}
+
+.resume-doc-container {
+    width: clamp(25em, 100%, 50em);
+    margin: auto;
+    padding: 3em;
+    position: relative;
+}
+
+.resume-doc {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    grid-auto-rows: min-content;
+    gap: 2em;
+    font-size: clamp(.7rem, 2vw, 1rem);
+    letter-spacing: 1px;
+    margin: auto;
+    position: relative;
+}
+
+.resume-doc-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--clr-primary);
+    z-index: -1;
+    box-shadow: 0 0 1em .1em hsla(0, 0%, 0%, 0.3);
+}
+
+.doc-header {
+    grid-column: 1/-1;
+    display: grid;
+    justify-items: center;
+}
+
+.fullname {
+    font-size: 2.5em;
+}
+
+.profession {
+    font-size: 1.5em;
+}
+
+.doc-section {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: .5em;
+}
+
+.title-icon {
+    display: flex;
+}
+
+.title-icon svg {
+    width: 1.25em;
+    position: relative;
+    top: -.05em;
+}
+
+.title {
+    font-size: 1.3em;
+    font-weight: 600;
+    background-color: rgb(242, 239, 247);
+    padding: .15em .2em;
+}
+
+.sub-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: .3em;
+    opacity: .7;
+}
+
+.section-content {
+    grid-column: 2;
+    display: grid;
+    gap: 1em;
+    padding-inline: .2em;
+}
+
+.extra-info {
+    grid-column: 2;
+    grid-row: 2/5;
+    display: grid;
+    grid-auto-rows: min-content;
+    gap: 2em;
+}
+
+.contacts {
+    display: grid;
+    gap: .5em;
+}
+
+.doc-skills-list {
+    display: grid;
+    gap: 1em;
+    margin-top: .8em;
+}
+
+.contacts div,
+.skill {
+    max-width: 12em;
+    word-wrap: break-word;
+}
+
+.skill {
+    border-bottom: 2px solid rgb(238, 226, 238);
+}
+
+.download-btn-container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--clr-secondary);
+}
+
+.download-btn {
+    padding: .5em 2em;
+    margin: 1em;
+    border: 0;
 }
