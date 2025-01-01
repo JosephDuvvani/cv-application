@@ -9,6 +9,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: inherit;
 }
 
 h1, h2, h3, h4, h5 {
@@ -21,7 +22,7 @@ ul, ol {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 button {
@@ -47,6 +48,7 @@ main {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    font-family: 'Oswald', sans-serif;
 }
 
  .logo-plus {
