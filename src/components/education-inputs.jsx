@@ -70,7 +70,7 @@ export default ({isActive, study, setStudy, formOpen, setFormOpen, populateStora
                     <div className="form-field-btns">
                         <button
                             type="button"
-                            className="close-btn form-field-btn"
+                            className="close-btn form-field-btn form-btn"
                             onClick={handleClose}
                         >
                             Close
@@ -78,7 +78,7 @@ export default ({isActive, study, setStudy, formOpen, setFormOpen, populateStora
 
                         <button
                         type="button"
-                        className="add-job-btn form-field-btn"
+                        className="add-btn form-field-btn form-btn"
                         onClick={handleAdd}
                         >
                             Add Education
@@ -252,7 +252,7 @@ export function SchoolCards({study, setStudy, formOpen, setFormOpen, populateSto
                                         <div className="edit-btns">
                                             <button 
                                                 type="button"
-                                                className="save-edit-btn"
+                                                className="save-edit-btn form-btn"
                                                 onClick={() => saveEdit(school.id)}
                                             >
                                                 Save                                          
@@ -260,7 +260,7 @@ export function SchoolCards({study, setStudy, formOpen, setFormOpen, populateSto
 
                                             <button 
                                                 type="button"
-                                                className="cancel-edit-btn"
+                                                className="cancel-edit-btn form-btn"
                                                 onClick={() => setEditId('')}
                                             >
                                                 Cancel                                          

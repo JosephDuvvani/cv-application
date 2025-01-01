@@ -1,3 +1,20 @@
+:root {
+    --clr-primary: #acdaf2;
+    --clr-secondary: hsl(211, 35%, 20%);
+    --clr-secondary-beta: hsl(254, 8%, 33%);
+    --clr-neutral: hsl(0, 0%, 100%);
+    --clr-dark: hsl(0, 0%, 0%);
+    --clr-accent: hsl(345, 82%, 56%);
+}
+
+input {
+    outline: none;
+}
+
+input:focus {
+    outline: 1.5px solid var(--clr-accent);
+}
+
 .form-inputs-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -22,6 +39,9 @@
 .label input {
     font-size: inherit;
     padding: 1rem;
+    background-color: var(--clr-secondary-beta);
+    color: var(--clr-neutral);
+    border: 0;
 }
 
 .profession-label {
@@ -65,16 +85,12 @@
     width: 100%;
 }
 
-.add-job-btn {
+.add-btn {
     justify-self: end;
 }
 
-.add-btn_icon svg,
-.btn-icon svg {
-    width: 1.5em;
-}
-
 .skills-list {
+    grid-column: 1/-1;
     display: grid;
     gap: 1rem;
 }
@@ -89,7 +105,18 @@
 }
 
 .add-skill-btn {
+    grid-column: 1/-1;
     grid-row: 3;
+    margin-right: 2.5em;
+}
+
+.skill-delete-btn{
+    outline: none;
+}
+
+.skill-delete-btn:hover,
+.skill-delete-btn:focus {
+    fill: var(--clr-accent);
 }
 
 .form-inputs-container_summary {
@@ -105,6 +132,10 @@
     max-width: 30rem;
     margin: auto;
     overflow-x: hidden;
+    background-color: var(--clr-secondary-beta);
+    color: var(--clr-neutral);
+    border: 0;
+    resize: none;
 }
 
 .btn-disable {
@@ -112,59 +143,8 @@
     opacity: .3;
 }
 
-.cards {
-    margin-bottom: 2rem;
-    margin-inline: auto;
-    max-width: var(--_max-form-width);
-}
-
-.card-list {
-    display: grid;
-    gap: 1rem;
-}
-
-.card {
-    border: 1px solid;
-    padding-block: 1.5em 1em;
-    padding-inline: 2em 1em;
-    border-radius: 10px;
-}
-
-.card-header {
-    display: flex;
-    margin-bottom: .5rem;
-}
-
-.card-title {
-    flex: 1;
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-.card-btn_edit {
-    margin-right: 1rem;
-}
-
-.edit-form {
-    margin-block: 2rem;
-    display: grid;
-    gap: 1.5rem;
-}
-
-.edit-btns {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.save-edit-btn,
-.cancel-edit-btn {
-    padding: 1rem 2rem;
-    border-radius: 50vh;
-}
-
 .add-more-btn {
+    font-weight: 700;
     width: 100%;
     display: flex;
     align-items: center;
@@ -173,6 +153,14 @@
     background-color: transparent;
     border-style: dashed;
     border-radius: 10px;
+    outline: none;
+    transition: all ease-in .2s;
+}
+
+.add-more-btn:hover,
+.add-more-btn:focus {
+    border-color: var(--clr-secondary-beta);
+    color: var(--clr-accent);
 }
 
 @media (max-width: 600px) {

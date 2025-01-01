@@ -69,7 +69,7 @@ export default ({isActive, jobs, setJobs, formOpen, setFormOpen, populateStorage
             <div className="form-field-btns">
                 <button
                     type="button"
-                    className="close-btn form-field-btn"
+                    className="close-btn form-field-btn form-btn"
                     onClick={handleClose}
                 >
                     Close
@@ -77,7 +77,7 @@ export default ({isActive, jobs, setJobs, formOpen, setFormOpen, populateStorage
 
                 <button
                 type="button"
-                className="add-job-btn form-field-btn"
+                className="add-btn form-field-btn form-btn"
                 onClick={addJob}
                 >
                     Add Job
@@ -249,7 +249,7 @@ export function WorkCards({jobs, setJobs, formOpen, setFormOpen, populateStorage
                                         <div className="edit-btns">
                                             <button 
                                                 type="button"
-                                                className="save-edit-btn"
+                                                className="save-edit-btn form-btn"
                                                 onClick={() => saveEdit(job.id)}
                                             >
                                                 Save                                          
@@ -257,7 +257,7 @@ export function WorkCards({jobs, setJobs, formOpen, setFormOpen, populateStorage
 
                                             <button 
                                                 type="button"
-                                                className="cancel-edit-btn"
+                                                className="cancel-edit-btn form-btn"
                                                 onClick={() => setEditId('')}
                                             >
                                                 Cancel                                          

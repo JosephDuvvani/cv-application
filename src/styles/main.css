@@ -1,6 +1,10 @@
 :root {
-    --clr-primary: hsl(0, 0%, 100%);
-    --clr-secondary: hsl(248, 39%, 39%);
+    --clr-primary: #acdaf2;
+    --clr-secondary: hsl(211, 35%, 20%);
+    --clr-secondary-beta: hsl(254, 8%, 33%);
+    --clr-neutral: hsl(0, 0%, 100%);
+    --clr-dark: hsl(0, 0%, 0%);
+    --clr-accent: hsl(345, 82%, 56%);
 }
 
 *,
@@ -9,6 +13,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: inherit;
     font-family: inherit;
 }
 
@@ -23,6 +28,7 @@ ul, ol {
 
 body {
     font-family: 'Nunito Sans', sans-serif;
+    background-color: var(--clr-primary);
 }
 
 button {
@@ -120,7 +126,7 @@ main {
     content: '';
     position: absolute;
     height: 3px;
-    width: 6em;
+    width: 6.5em;
     left: 100%;
     top: 50%;
     transform: translateY(-50%);
@@ -207,29 +213,135 @@ main {
     margin: auto;
 }
 
+.heading {
+    font-size: 2em;
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
+    margin: auto;
+    padding-bottom: 1rem;
+}
+.step-heading {
+    max-width: 900px;
+}
+
 .form-container {
     margin: auto;
     max-width: var(--_max-form-width);
 }
 
-.summary-input {
-    resize: none;
+.btn-icon svg {
+    width: 1.5em;
+}
+
+.cards {
+    margin-bottom: 2rem;
+    margin-inline: auto;
+    max-width: var(--_max-form-width);
+}
+
+.card-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.card {
+    border: 1px solid;
+    padding-block: 1.5em 1em;
+    padding-inline: 2em 1em;
+    border-radius: 10px;
+}
+
+.card-header {
+    display: flex;
+    margin-bottom: .5rem;
+}
+
+.card-title {
+    flex: 1;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.card-btn {
+    outline: none;
+}
+
+.card-btn_edit {
+    margin-right: 1rem;
+}
+
+.card-btn:hover .btn-icon svg,
+.card-btn:focus .btn-icon svg {
+    fill: var(--clr-accent);
+}
+
+.edit-form {
+    margin-block: 2rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.edit-btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.form-btn {
+    font-weight: 900;
+    color: var(--clr-primary);
+    background-color: var(--clr-secondary);
+    border: 0;
+    padding: .5em 1em;
+    letter-spacing: 0.5px;
+    border-radius: 0.2em;
+    outline: none;
+    transition: color ease-in .2s;
+}
+
+.form-btn:hover,
+.form-btn:focus {
+    color: var(--clr-accent);
 }
 
 .back-btn {
-    margin-bottom: 2rem;
+    font-weight: 700;
+    color: var(--clr-accent);
+    outline: none;
+    transition: color ease-in-out .3s;
+}
+
+.back-btn:hover,
+.back-btn:focus {
+    color: var(--clr-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 .next-btn {
     grid-column: 1/-1;
     justify-self: end;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 2rem;
     padding: 1rem 2rem;
     border-radius: 50vh;
-    margin-top: 2rem;
+    color: var(--clr-accent);
+    background-color: var(--clr-secondary);
+    border: 0;
+    outline: none;
+    transition: all ease-in-out .3s;
 }
 
-.resume-section {
-    display: grid;
+.next-btn:hover,
+.next-btn:focus {
+    background-color: var(--clr-secondary-beta);
+    color: var(--clr-primary);
+}
+
+.resume-heading {
+    max-width: 800px;
 }
 
 .resume-doc-container {
@@ -237,6 +349,7 @@ main {
     margin: auto;
     padding: 3em;
     position: relative;
+    background-color: var(--clr-neutral);
 }
 
 .resume-doc {
@@ -349,4 +462,13 @@ main {
     padding: .5em 2em;
     margin: 1em;
     border: 0;
+    color: var(--clr-secondary-beta);
+    background-color: var(--clr-primary);
+    font-weight: 700;
+    transition: all ease-in-out .3s;
+}
+
+.download-btn:hover {
+    background-color: var(--clr-accent);
+    color: var(--clr-secondary);
 }

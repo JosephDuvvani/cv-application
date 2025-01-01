@@ -74,6 +74,10 @@ function Main() {
     setActive(active - 1);
   }
 
+  const headingList = ['Personal Details', 'Work History', 'Education',
+    'Skills', 'Summary'
+  ]
+
   return (
     <main>
       <Header activeIndex = {active} />
@@ -91,6 +95,8 @@ function Main() {
         }
         {active >= 0 && active < 5 &&
         <section className='form-section'>
+          <h1 className="heading step-heading">{headingList[active]}</h1>
+
           {active === 1 && work.length > 0 && 
             <WorkCards 
               jobs={work} 
@@ -178,6 +184,7 @@ function Main() {
 
         {active === 5 &&
         <section className="resume-section">
+          <h1 className="heading resume-heading">Your Resume</h1>
           <Resume
             personal={heading}
             work={work}

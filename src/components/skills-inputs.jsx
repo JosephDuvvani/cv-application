@@ -32,15 +32,11 @@ export default ({isActive, skills, setSkills, populateStorage}) => {
                     />
 
                     <button
-                    type="button"
-                        className={"add-btn add-skill-btn btn-strip" + (!isFull() ? " btn-disable" : "")} 
+                        type="button"
+                        tabIndex={!isFull() ? -1 : 0}
+                        className={"form-btn add-btn add-skill-btn" + (!isFull() ? " btn-disable" : "")} 
                         onClick={addSkill}                   
                     >
-                        <span className="add-btn_icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
-                            </svg>
-                        </span>
                         Add a skill
                     </button>
                 </div> :
@@ -89,10 +85,10 @@ function SkillFields({abilities, setList, populateStorage}) {
 
                         <button
                             type="button"
-                            className={"delete-btn btn-strip"}
+                            className={"skill-delete-btn btn-strip"}
                             onClick={() => handleDelete(skill.id)}
                         >
-                            <span className="card-btn-icon btn-icon">
+                            <span className="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <title>delete</title>
                                     <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
