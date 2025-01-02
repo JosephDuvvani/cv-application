@@ -79,9 +79,9 @@ function Main() {
   ]
 
   return (
+    <>
+    <Header activeIndex = {active} />
     <main>
-      <Header activeIndex = {active} />
-
       <div className="content">
         {active > 0 &&
           <div className="direction-btn-container">
@@ -195,6 +195,21 @@ function Main() {
         </section>}
       </div>
     </main>
+    <footer>
+          <div className="footer-content-container">
+            <p>
+              <span>Favicon</span>
+              <a 
+                href="https://www.flaticon.com/free-icons/recruitment" 
+                title="recruitment icons"
+                target="_blank"
+              >
+                Recruitment icons created by Freepik - Flaticon
+              </a>
+            </p>
+          </div>
+    </footer>
+    </>
   )
 }
 
